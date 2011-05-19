@@ -21,17 +21,25 @@ class DefaultController extends Controller {
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'users'=>array('admin'),
+				'roles'=>array('admin, Admin')
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
+				'expression'=> '!Yii::app()->getModule("p3admin")->params["install"]',
 			),
 		);
 	}
 
 	public function actionIndex() {
-		#$this->layout = "//layouts/column2";
+		$this->layout = "//layouts/column2";
 		$this->render('index');
 	}
+
+	public function actionSettings() {
+		#$this->layout = "//layouts/column2";
+		$this->render('settings');
+	}
+
 
 	public function getModuleData() {
 		$filesystem = P3AdminModule::findModules();
